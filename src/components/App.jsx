@@ -12,7 +12,20 @@ export class App extends Component {
   state = {
       contacts: [],
       filter: ''
-    };
+  };
+  
+  componentDidMount() {
+    const savedContacts = localStorage.getItem("contacts")
+    if (savedContacts) {
+      this.setState({contacts: JSON.parse(savedContacts)})
+    }
+  }
+
+  componentDidUpdate(prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts))
+    }
+  }
   
 
  
